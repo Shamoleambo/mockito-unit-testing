@@ -8,10 +8,9 @@ import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.ApplicationContext;
 
 import com.luv2code.component.MvcTestingExampleApplication;
@@ -32,10 +31,10 @@ public class MockAnnotationTest {
 	@Autowired
 	StudentGrades studentGrades;
 
-	@Mock
+	@MockBean
 	private ApplicationDao applicationDao;
 
-	@InjectMocks
+	@Autowired
 	private ApplicationService applicationService;
 
 	@BeforeEach
