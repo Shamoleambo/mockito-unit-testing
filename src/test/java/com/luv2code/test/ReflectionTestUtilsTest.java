@@ -1,9 +1,12 @@
 package com.luv2code.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
@@ -35,5 +38,10 @@ public class ReflectionTestUtilsTest {
 		ReflectionTestUtils.setField(this.student, "id", 1);
 		ReflectionTestUtils.setField(this.student, "studentGrades",
 				new StudentGrades(new ArrayList<>(Arrays.asList(100.00, 85.0, 76.5, 91.75))));
+	}
+
+	@Test
+	void getPrivateField() {
+		assertEquals(1, ReflectionTestUtils.getField(this.student, "id"), "it should totally be 1");
 	}
 }
