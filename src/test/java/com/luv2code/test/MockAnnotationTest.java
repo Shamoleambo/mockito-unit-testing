@@ -1,6 +1,8 @@
 package com.luv2code.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -52,5 +54,8 @@ public class MockAnnotationTest {
 
 		assertEquals(100, this.applicationService
 				.addGradeResultsForSingleClass(this.student.getStudentGrades().getMathGradeResults()));
+
+		verify(this.applicationDao).addGradeResultsForSingleClass(this.studentGrades.getMathGradeResults());
+		verify(this.applicationDao, times(1)).addGradeResultsForSingleClass(this.studentGrades.getMathGradeResults());
 	}
 }
