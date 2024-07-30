@@ -1,6 +1,7 @@
 package com.luv2code.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -65,5 +66,14 @@ public class MockAnnotationTest {
 
 		assertEquals(88.31,
 				this.applicationService.findGradePointAverage(this.student.getStudentGrades().getMathGradeResults()));
+	}
+
+	@Test
+	@DisplayName("Not null")
+	void testAssertNotNull() {
+		when(this.applicationDao.checkNull(this.studentGrades.getMathGradeResults())).thenReturn(true);
+
+		assertNotNull(this.applicationService.checkNull(this.student.getStudentGrades().getMathGradeResults()),
+				"Object should not be null");
 	}
 }
