@@ -44,4 +44,10 @@ public class ReflectionTestUtilsTest {
 	void getPrivateField() {
 		assertEquals(1, ReflectionTestUtils.getField(this.student, "id"), "it should totally be 1");
 	}
+
+	@Test
+	void invokePrivateMethod() {
+		assertEquals("Mano 1", ReflectionTestUtils.invokeMethod(this.student, "getFirstNameAndId"),
+				"Fail my brotha from another motha");
+	}
 }
