@@ -2,6 +2,8 @@ package com.luv2code.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -75,5 +77,19 @@ public class MockAnnotationTest {
 
 		assertNotNull(this.applicationService.checkNull(this.student.getStudentGrades().getMathGradeResults()),
 				"Object should not be null");
+	}
+
+	@Test
+	@DisplayName("Throw runtime error")
+	void throwRuntimeError() {
+		CollegeStudent nullStudent = (CollegeStudent) this.context.getBean("collegeStudent");
+
+		doThrow(new RuntimeException()).when(this.applicationDao).checkNull(nullStudent);
+
+		assertThrows(RuntimeException.class, () -> {
+			this.applicationService.checkNull(nullStudent);
+		});
+
+		verify(this.applicationDao, times(1)).checkNull(nullStudent);
 	}
 }
