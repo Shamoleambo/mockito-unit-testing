@@ -92,4 +92,20 @@ public class MockAnnotationTest {
 
 		verify(this.applicationDao, times(1)).checkNull(nullStudent);
 	}
+
+	@Test
+	@DisplayName("Multiple Stubbings")
+	void stubbingConsecutiveCalls() {
+		CollegeStudent nullStudent = (CollegeStudent) this.context.getBean("collegeStudent");
+
+		when(this.applicationDao.checkNull(nullStudent)).thenThrow(new RuntimeException())
+				.thenReturn("Do not throw exception second time");
+
+		assertThrows(RuntimeException.class, () -> {
+			this.applicationService.checkNull(nullStudent);
+		});
+		assertEquals("Do not throw exception second time", this.applicationService.checkNull(nullStudent));
+
+		verify(this.applicationDao, times(2)).checkNull(nullStudent);
+	}
 }
